@@ -4,7 +4,7 @@ Written in Python 3.4.1
 
 Usage :
 
-    python minfiCSS.py FOLDER_NAME {  | Suffix_for_Output_file }
+    python minfiCSS.py { css | js } FOLDER_NAME {  | Suffix_for_Output_file }
 
     for example...
         python minfiCSS.py tmpfolder min
