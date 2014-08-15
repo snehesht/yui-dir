@@ -7,8 +7,8 @@ Usage :
     python minfiCSS.py { css | js } FOLDER_NAME {  | Suffix_for_Output_file }
 
     for example...
-        python minfiCSS.py tmpfolder min
+        python minfiCSS.py css tmpfolder min
         style.css (40kb) ==> style-min.css (35kb)
 
-        python minifiCSS.py tmpfolder
+        python minifiCSS.py css tmpfolder
         style.css (40kb) ==> style.css (35kb)
