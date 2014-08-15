@@ -1,7 +1,3 @@
-#! /usr/bin/python
-# Written in python v3.4.1
-# Author Name : Snehesh
-# Github Repo : https://github.com/snehesh-io/YUI-Compressor-for-whole-directory/
 import os
 from subprocess import Popen,PIPE
 from sys import argv
@@ -14,17 +10,31 @@ def compressCSS(infile,outfile):
     output,error = process.communicate()
     return output.decode('utf-8'),error.decode('utf-8')
 
-def main(folder,rename_suffix):
+def main(folder,file_type,rename_suffix):
     directoryList = os.listdir(folder)
-    if rename_suffix == False :
-        for infile in directoryList :
-            output,error = compressCSS(folder+'/'+infile, folder+'/'+infile)
-            displayError(infile, error)
-    else:
-        for infile in directoryList :
-            outfile = infile.replace('.css','')+'-'+rename_suffix+'.css'
-            output,error = compressCSS(folder+'/'+infile, folder+'/'+outfile)
-            displayError(infile, error)
+    file_type = '.'+file_type
+#    if rename_suffix == False :
+#        for infile in directoryList :
+#            output,error = compressCSS(folder+'/'+infile, folder+'/'+infile)
+#            displayError(infile, error)
+#    else:
+#        for infile in directoryList :
+#            outfile = infile.replace(file_type,'')+'-'+rename_suffix+file_type
+#            output,error = compressCSS(folder+'/'+infile, folder+'/'+outfile)
+#            displayError(infile, error)
+
+    for infile in directoryList:
+        if file_type in infile:
+            if rename_suffix ==False :
+                output,error = compressCSS(folder+'/'+infile, folder+'/'+infile)
+                displayError(infile, error)
+            else:
+                outfile = infile.replace(file_type,'')+'-'+rename_suffix+file_type
+                output,error = compressCSS(folder+'/'+infile, folder+'/'+outfile)
+                displayError(infile, error)
+        else:
+            continue
+
 
 def displayError(infile,error):
     if error != '':
@@ -37,7 +47,7 @@ def displayError(infile,error):
 
 def help():
     print('Usage ::')
-    print('python minifiCSS.py FOLDER_NAME {None | Output file Suffix}'+'\n')
+    print('python minifiCSS.py { css | js }FOLDER_NAME {None | Output file Suffix}'+'\n')
     print('for example...')
     print('\t'+'python minfiCSS.py tmpfolder min')
     print('\t'+'style.css (40kb) ==> style-min.css (35kb)'+'\n')
@@ -46,14 +56,16 @@ def help():
 
 
 if __name__=='__main__':
-    if len(argv)==3:
+    if len(argv)==4:
         script_name = argv[0]
-        folder = argv[1]
-        renamefile = argv[2]
-        main(folder,renamefile)
-    elif len(argv)==2:
+        file_type = argv[1]
+        folder = argv[2]
+        renamefile = argv[3]
+        main(folder,file_type,renamefile)
+    elif len(argv)==3:
         script_name = argv[0]
-        folder = argv[1]
-        main(folder,False)
+        file_type = argv[1]
+        folder = argv[2]
+        main(folder,file_type,False)
     else:
         help()
