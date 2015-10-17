@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import os
 from subprocess import Popen,PIPE
 from sys import argv
